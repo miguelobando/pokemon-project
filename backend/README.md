@@ -3,8 +3,8 @@
 ## To Do
 
 - [x] Create a database using PostgreSQL including the tables
-- [] Create the register endpoint
-- [ ] Create the login endpoint
+- [x] Create the register endpoint
+- [x] Create the login endpoint
 - [ ] Create the logout endpoint
 - [ ] Create the reset password endpoint
 - [ ] Create the get JWT guard
