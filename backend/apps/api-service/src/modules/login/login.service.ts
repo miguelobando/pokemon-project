@@ -13,7 +13,13 @@ export class LoginService {
   ) {}
 
   async signIn(data: SignInDto) {
-    console.log(data);
+    const user = await this.usersRepo.findOne({
+      where: { email: data.email, password: data.password },
+    });
+    if (!user) {
+      throw new HttpException('Invalid email or password', 400);
+    }
+    return user;
   }
 
   async signUp(data: SignUpDto) {
