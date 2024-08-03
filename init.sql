@@ -16,7 +16,7 @@ CREATE TABLE public.users (
     email varchar(255) NULL,
     password varchar(255) NULL,
     id SERIAL NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id, email)
 );
 
 CREATE TABLE public.trades (
