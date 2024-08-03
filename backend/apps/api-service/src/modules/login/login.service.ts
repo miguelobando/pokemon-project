@@ -1,8 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { SingUpDto } from './dto/sing-up.dto';
+import { SignUpDto } from './dto/sing-up.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../entities/user.entity';
 import { Repository } from 'typeorm';
+import { SignInDto } from './dto/sign-in.dto';
 
 @Injectable()
 export class LoginService {
@@ -11,7 +12,11 @@ export class LoginService {
     private readonly usersRepo: Repository<User>,
   ) {}
 
-  async signUp(data: SingUpDto) {
+  async signIn(data: SignInDto) {
+    console.log(data);
+  }
+
+  async signUp(data: SignUpDto) {
     const existingUser = await this.usersRepo.findOne({
       where: { email: data.email },
     });
@@ -23,6 +28,8 @@ export class LoginService {
     const user = new User();
     user.email = data.email;
     user.password = data.password;
+    user.name = data.name;
+    user.gender = data.gender;
     await this.usersRepo.save(user);
     return user;
   }

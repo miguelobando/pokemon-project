@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginService } from './login.service';
 import { User } from '../../entities/user.entity';
-import { SingUpDto } from './dto/sing-up.dto';
+import { SignUpDto } from './dto/sing-up.dto';
 import { HttpException } from '@nestjs/common';
 
 describe('LoginService', () => {
@@ -34,17 +34,18 @@ describe('LoginService', () => {
 
   describe('signUp', () => {
     it('should throw an error if user already exists', async () => {
-      const signUpDto: SingUpDto = {
+      const signUpDto: SignUpDto = {
         email: 'test@example.com',
         password: 'password',
+        name: 'test',
+        gender: 'male',
       };
-
       const userMocked = new User();
       userMocked.email = signUpDto.email;
       userMocked.password = signUpDto.password;
-
+      userMocked.name = signUpDto.name;
+      userMocked.gender = signUpDto.gender;
       jest.spyOn(usersRepo, 'findOne').mockResolvedValue(userMocked);
-
       await expect(service.signUp(signUpDto)).rejects.toThrow(HttpException);
       await expect(service.signUp(signUpDto)).rejects.toThrow(
         'Email is already registered',
@@ -52,17 +53,24 @@ describe('LoginService', () => {
     });
 
     it('should create a new user if email is not registered', async () => {
-      const signUpDto: SingUpDto = {
+      const signUpDto: SignUpDto = {
         email: 'test@example.com',
         password: 'password',
+        name: 'test',
+        gender: 'male',
       };
-
       jest.spyOn(usersRepo, 'findOne').mockResolvedValueOnce(null);
-      jest.spyOn(usersRepo, 'save').mockResolvedValueOnce(signUpDto as any);
 
+      const user = new User();
+      user.email = signUpDto.email;
+      user.password = signUpDto.password;
+      user.name = signUpDto.name;
+      user.gender = signUpDto.gender;
+
+      jest.spyOn(usersRepo, 'save').mockResolvedValueOnce(user);
       const result = await service.signUp(signUpDto);
 
-      expect(result).toEqual(signUpDto);
+      expect(result).toEqual(user);
       expect(usersRepo.save).toHaveBeenCalledWith(
         expect.objectContaining(signUpDto),
       );
