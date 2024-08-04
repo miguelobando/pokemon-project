@@ -10,8 +10,6 @@ export class AssignPokemonsWorkerService {
   constructor(
     @InjectRepository(RegisteredPokemonEntity)
     private readonly registeredPokemonRepository: Repository<RegisteredPokemonEntity>,
-    @InjectRepository(OwnedPokemon)
-    private readonly ownedPokemonRepository: Repository<OwnedPokemon>,
     private readonly getPokemonsWorkerService: getPokemonsWorkerService,
     private readonly dataSource: DataSource,
   ) {}
