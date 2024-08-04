@@ -11,7 +11,7 @@
 - [x] Assign pokemons to users when registering 
 - [x] Add redist to the project
 - [x] Create the get all pokemons endpoint
-- [ ] Get my own pokemons
+- [x] Get my own pokemons
 - [ ] Create the "I want to trade a pokemon" endpoint
 - [ ] Create the "I want to give the pokemon endpoint"
 - [ ] Create the webook for the "I want to trade a pokemon" endpoint
