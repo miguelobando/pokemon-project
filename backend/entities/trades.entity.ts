@@ -20,7 +20,7 @@ export class Trades {
   trader_id: number;
 
   @Column()
-  completed: boolean = false;
+  completed: boolean;
 
   @ManyToOne(() => RegisteredPokemonEntity, { eager: true })
   @JoinColumn({

@@ -13,16 +13,19 @@ CREATE TABLE public.registered_pokemon (
 );
 
 CREATE TABLE public.users (
-    email varchar(255) NULL,
-    password varchar(255) NULL,
-    id SERIAL NOT NULL,
-    PRIMARY KEY (id, email)
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    password VARCHAR(255),
+    name VARCHAR(255),
+    gender VARCHAR(255)
 );
+
 
 CREATE TABLE public.trades (
     exchange_id SERIAL NOT NULL,
     requested_pokemon_id varchar NOT NULL,
     trader_id integer NOT NULL,
+    completed boolean NOT NULL,
     PRIMARY KEY (exchange_id),
     FOREIGN KEY (requested_pokemon_id) REFERENCES registered_pokemon(pokemon_id),
     FOREIGN KEY (trader_id) REFERENCES users(id)

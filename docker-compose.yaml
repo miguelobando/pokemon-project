@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres
@@ -5,7 +7,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pass123
       POSTGRES_DB: mydatabase
-      POSTGRES_SCHEMA: public
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
@@ -15,14 +16,14 @@ services:
       - mynetwork
 
   redis:
-    image: redis:4.0.6-alpine
+    image: redis:7.0-alpine
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
       - mynetwork
-  
+
 networks:
   mynetwork:
     driver: bridge
