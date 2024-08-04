@@ -13,9 +13,9 @@
 - [x] Create the get all pokemons endpoint
 - [x] Get my own pokemons
 - [x] Create the "I want to trade a pokemon" endpoint
-- [ ] Create the "I want to give the pokemon endpoint"
-- [ ] Create the webook for the "I want to trade a pokemon" endpoint
-
+- [x] Create the "I want to give the pokemon endpoint"
+- [ ] Create the method to say aware of new available trades
+- [x] Create endpoint to get available trades   
 ## Description
 
 Backend side for the Pokemon project.

@@ -74,4 +74,16 @@ export class PokemonController {
       throw new HttpException('Error with the backend services', 500);
     }
   }
+
+  @Get('available-trades')
+  @HttpCode(HttpStatus.OK)
+  async getAvailableTrades() {
+    try {
+      const result = await this.pokemonService.getAvailableTrades();
+      return result;
+    } catch (error) {
+      console.error('Error getting available trades:', error);
+      throw new HttpException('Error with the backend services', 500);
+    }
+  }
 }

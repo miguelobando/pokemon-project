@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { OwnedPokemon } from '../../../../../entities/ownedPokemon.entity';
 import { RegisteredPokemonEntity } from '../../../../../entities/registeredPokemon.entity';
 import { Repository } from 'typeorm';
+import { Trades } from '../../../../../entities/trades.entity';
 
 @Injectable()
 export class PokemonService {
@@ -11,6 +12,8 @@ export class PokemonService {
     private readonly ownedPokemonRepository: Repository<OwnedPokemon>,
     @InjectRepository(RegisteredPokemonEntity)
     private readonly registeredPokemonRepository: Repository<RegisteredPokemonEntity>,
+    @InjectRepository(Trades)
+    private readonly tradesRepository: Repository<Trades>,
   ) {}
 
   async getOwnedPokemons(id: number) {
@@ -41,6 +44,20 @@ export class PokemonService {
       return pokemons;
     } catch (error) {
       console.error('Error getting owned pokemons:', error);
+      throw new HttpException('Error with the backend services', 500);
+    }
+  }
+
+  async getAvailableTrades(): Promise<Trades[]> {
+    try {
+      // Get all trades that are not completed
+      const trades = await this.tradesRepository.find({
+        where: { completed: false },
+      });
+
+      return trades;
+    } catch (error) {
+      console.error('Error getting available trades:', error);
       throw new HttpException('Error with the backend services', 500);
     }
   }
