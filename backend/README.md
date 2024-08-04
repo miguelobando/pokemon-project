@@ -9,7 +9,7 @@
 - [ ] Create the reset password endpoint
 - [ ] Create the get JWT guard
 - [ ] Add redist to the project
-- [ ] Create the get all pokemons endpoint
+- [x] Create the get all pokemons endpoint
 - [ ] Create the "I want to trade a pokemon" endpoint
 - [ ] Create the "I want to give the pokemon endpoint"
 - [ ] Create the webook for the "I want to trade a pokemon" endpoint
