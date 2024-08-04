@@ -3,11 +3,13 @@
 - [ ] Create the login page
 - [ ] Create the register page
 - [ ] Create the reset password page
-- [ ] Create the logout page
+- [ ] Create the logout feature
 - [ ] Create the get all pokemons page
-- [ ] Create the "I want to trade a pokemon" page
-- [ ] Create the "I want to give the pokemon" page
-
+- [ ] Create the "Available trades" page
+- [ ] Create the "Give pokemon" feature
+- [ ] Create the notifications page
+- [ ] Create the "My pokemons" page
+ 
 
 All of this below will be erased when the project is ready.
 
