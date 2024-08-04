@@ -52,4 +52,26 @@ export class QueueService {
       throw error;
     }
   }
+
+  async assignPokemonsToUser(id: number) {
+    try {
+      const job = await this.taskQueue.add(
+        'assign-pokemons-to-user',
+        {
+          message: 'Assign pokemons to user',
+          id: id,
+        },
+        {
+          attempts: 5,
+          backoff: 5000,
+        },
+      );
+      const result = await job.finished();
+      console.log('Assign pokemons to user job finished');
+      return result;
+    } catch (error) {
+      console.error('Error assigning pokemons to user:', error);
+      throw error;
+    }
+  }
 }

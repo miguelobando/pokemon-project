@@ -1,5 +1,3 @@
-// src/worker/getPokemonsWorker.service.spec.ts
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { getPokemonsWorkerService } from './getPokemonsWorker.service';
 import { HttpService } from '@nestjs/axios';

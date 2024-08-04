@@ -6,6 +6,8 @@ import { WorkerProcessor } from './worker.processor';
 import { getPokemonsWorkerService } from './getPokemonsWorker.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
+import { AssignPokemonsWorkerService } from './assignPokemonsWorker.service';
+import { OwnedPokemon } from 'entities/ownedPokemon.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [RegisteredPokemonEntity],
+        entities: [RegisteredPokemonEntity, OwnedPokemon],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -41,8 +43,13 @@ import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
     BullModule.registerQueue({
       name: 'task-queue',
     }),
-    TypeOrmModule.forFeature([RegisteredPokemonEntity]),
+    TypeOrmModule.forFeature([RegisteredPokemonEntity, OwnedPokemon]),
   ],
-  providers: [WorkerProcessor, getPokemonsWorkerService],
+  providers: [
+    WorkerProcessor,
+    getPokemonsWorkerService,
+    AssignPokemonsWorkerService,
+  ],
+  exports: [getPokemonsWorkerService],
 })
 export class WorkerServiceModule {}
