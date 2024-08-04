@@ -65,6 +65,10 @@ describe('AssignPokemonsService', () => {
     ownedPokemonRepository = module.get<Repository<OwnedPokemon>>(
       getRepositoryToken(OwnedPokemon),
     );
+
+    // Mock console.log and console.error
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+    jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
   });
 
   it('should be defined', () => {

@@ -84,6 +84,10 @@ describe('RequestTradeService', () => {
     tradesRepository = module.get(getRepositoryToken(Trades));
     activitiesRepository = module.get(getRepositoryToken(Activities));
     ownedPokemonRepository = module.get(getRepositoryToken(OwnedPokemon));
+
+    // Mock console.log and console.error
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+    jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
   });
 
   afterEach(() => {

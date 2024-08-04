@@ -33,6 +33,9 @@ describe('PokemonService', () => {
     registeredPokemonRepository = module.get<
       Repository<RegisteredPokemonEntity>
     >(getRepositoryToken(RegisteredPokemonEntity));
+    // Avoid console.log and console.error in tests
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+    jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
   });
 
   it('should be defined', () => {
