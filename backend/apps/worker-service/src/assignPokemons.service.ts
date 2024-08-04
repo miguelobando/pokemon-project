@@ -3,14 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { OwnedPokemon } from '../../../entities/ownedPokemon.entity';
 import { RegisteredPokemonEntity } from '../../../entities/registeredPokemon.entity';
 import { DataSource, Repository } from 'typeorm';
-import { getPokemonsWorkerService } from './getPokemonsWorker.service';
+import { getPokemonsService } from './getPokemons.service';
 
 @Injectable()
-export class AssignPokemonsWorkerService {
+export class AssignPokemonsService {
   constructor(
     @InjectRepository(RegisteredPokemonEntity)
     private readonly registeredPokemonRepository: Repository<RegisteredPokemonEntity>,
-    private readonly getPokemonsWorkerService: getPokemonsWorkerService,
+    private readonly getPokemonsWorkerService: getPokemonsService,
     private readonly dataSource: DataSource,
   ) {}
   async processAssignPokemonsToUser(id: number) {

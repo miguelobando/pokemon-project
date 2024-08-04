@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AssignPokemonsWorkerService } from './assignPokemonsWorker.service';
-import { getPokemonsWorkerService } from './getPokemonsWorker.service';
+import { AssignPokemonsService } from './assignPokemons.service';
+import { getPokemonsService } from './getPokemons.service';
 import { Repository } from 'typeorm';
 import { OwnedPokemon } from '../../../entities/ownedPokemon.entity';
 import { RegisteredPokemonEntity } from '../../../entities/registeredPokemon.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
-describe('AssignPokemonsWorkerService', () => {
-  let service: AssignPokemonsWorkerService;
+describe('AssignPokemonsService', () => {
+  let service: AssignPokemonsService;
   let registeredPokemonRepository: Repository<RegisteredPokemonEntity>;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let ownedPokemonRepository: Repository<OwnedPokemon>;
-  let getPokemonsWorkerServiceMock: jest.Mocked<getPokemonsWorkerService>;
+  let getPokemonsWorkerServiceMock: jest.Mocked<getPokemonsService>;
   let dataSource: DataSource;
   let queryRunner: any;
 
@@ -38,7 +38,7 @@ describe('AssignPokemonsWorkerService', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AssignPokemonsWorkerService,
+        AssignPokemonsService,
         {
           provide: getRepositoryToken(RegisteredPokemonEntity),
           useClass: Repository,
@@ -48,7 +48,7 @@ describe('AssignPokemonsWorkerService', () => {
           useClass: Repository,
         },
         {
-          provide: getPokemonsWorkerService,
+          provide: getPokemonsService,
           useValue: getPokemonsWorkerServiceMock,
         },
         {
@@ -58,9 +58,7 @@ describe('AssignPokemonsWorkerService', () => {
       ],
     }).compile();
 
-    service = module.get<AssignPokemonsWorkerService>(
-      AssignPokemonsWorkerService,
-    );
+    service = module.get<AssignPokemonsService>(AssignPokemonsService);
     registeredPokemonRepository = module.get<
       Repository<RegisteredPokemonEntity>
     >(getRepositoryToken(RegisteredPokemonEntity));

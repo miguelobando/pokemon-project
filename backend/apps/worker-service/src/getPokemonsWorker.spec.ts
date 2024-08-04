@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getPokemonsWorkerService } from './getPokemonsWorker.service';
+import { getPokemonsService } from './getPokemons.service';
 import { HttpService } from '@nestjs/axios';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -9,8 +9,8 @@ import { AxiosResponse } from 'axios';
 import { PokemonApiResponse } from './interfaces/apiResponse';
 import { PokemonDetails } from './interfaces/pokemonDetails';
 
-describe('GetPokemonsWorkerService', () => {
-  let service: getPokemonsWorkerService;
+describe('GetPokemonsService', () => {
+  let service: getPokemonsService;
   let httpService: HttpService;
   let repository: Repository<RegisteredPokemonEntity>;
   let dataSource: DataSource;
@@ -18,7 +18,7 @@ describe('GetPokemonsWorkerService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        getPokemonsWorkerService,
+        getPokemonsService,
         {
           provide: HttpService,
           useValue: {
@@ -47,7 +47,7 @@ describe('GetPokemonsWorkerService', () => {
       ],
     }).compile();
 
-    service = module.get<getPokemonsWorkerService>(getPokemonsWorkerService);
+    service = module.get<getPokemonsService>(getPokemonsService);
     httpService = module.get<HttpService>(HttpService);
     repository = module.get<Repository<RegisteredPokemonEntity>>(
       getRepositoryToken(RegisteredPokemonEntity),

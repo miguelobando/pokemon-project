@@ -74,4 +74,27 @@ export class QueueService {
       throw error;
     }
   }
+
+  async requestTrade(userId: number, pokemonId: string) {
+    try {
+      const job = await this.taskQueue.add(
+        'request-trade',
+        {
+          message: 'Request trade',
+          userId: userId,
+          pokemonId: pokemonId,
+        },
+        {
+          attempts: 5,
+          backoff: 5000,
+        },
+      );
+      const result = await job.finished();
+      console.log('Request trade job finished');
+      return result;
+    } catch (error) {
+      console.error('Error requesting trade:', error);
+      throw error;
+    }
+  }
 }

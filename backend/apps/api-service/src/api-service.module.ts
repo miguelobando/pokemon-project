@@ -9,6 +9,8 @@ import { PokemonModule } from './modules/pokemon/pokemon.module';
 import { QueueModule } from './modules/queue/queue.module';
 import { OwnedPokemon } from 'entities/ownedPokemon.entity';
 import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
+import { Trades } from 'entities/trades.entity';
+import { Activities } from 'entities/activities.entity';
 
 @Module({
   imports: [
@@ -25,7 +27,13 @@ import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User, OwnedPokemon, RegisteredPokemonEntity],
+        entities: [
+          User,
+          OwnedPokemon,
+          RegisteredPokemonEntity,
+          Trades,
+          Activities,
+        ],
         synchronize: true,
       }),
       inject: [ConfigService],

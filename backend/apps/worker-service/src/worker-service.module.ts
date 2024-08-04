@@ -3,11 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { BullModule } from '@nestjs/bull';
 import { WorkerProcessor } from './worker.processor';
-import { getPokemonsWorkerService } from './getPokemonsWorker.service';
+import { getPokemonsService } from './getPokemons.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
-import { AssignPokemonsWorkerService } from './assignPokemonsWorker.service';
+import { AssignPokemonsService } from './assignPokemons.service';
 import { OwnedPokemon } from 'entities/ownedPokemon.entity';
+import { RequestTradeService } from './requestTrade.service';
+import { Activities } from 'entities/activities.entity';
+import { Trades } from 'entities/trades.entity';
+import { User } from 'entities/user.entity';
 
 @Module({
   imports: [
@@ -25,7 +29,13 @@ import { OwnedPokemon } from 'entities/ownedPokemon.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [RegisteredPokemonEntity, OwnedPokemon],
+        entities: [
+          RegisteredPokemonEntity,
+          OwnedPokemon,
+          Trades,
+          Activities,
+          User,
+        ],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -43,13 +53,20 @@ import { OwnedPokemon } from 'entities/ownedPokemon.entity';
     BullModule.registerQueue({
       name: 'task-queue',
     }),
-    TypeOrmModule.forFeature([RegisteredPokemonEntity, OwnedPokemon]),
+    TypeOrmModule.forFeature([
+      RegisteredPokemonEntity,
+      OwnedPokemon,
+      Trades,
+      Activities,
+      User,
+    ]),
   ],
   providers: [
     WorkerProcessor,
-    getPokemonsWorkerService,
-    AssignPokemonsWorkerService,
+    getPokemonsService,
+    AssignPokemonsService,
+    RequestTradeService,
   ],
-  exports: [getPokemonsWorkerService],
+  exports: [getPokemonsService],
 })
 export class WorkerServiceModule {}

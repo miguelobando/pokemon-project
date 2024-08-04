@@ -12,7 +12,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 const API_URL = 'https://pokeapi.co/api/v2/pokemon/?limit=25&offset=0';
 
 @Injectable()
-export class getPokemonsWorkerService {
+export class getPokemonsService {
   constructor(
     @InjectRepository(RegisteredPokemonEntity)
     private readonly registeredPokemonRepository: Repository<RegisteredPokemonEntity>,

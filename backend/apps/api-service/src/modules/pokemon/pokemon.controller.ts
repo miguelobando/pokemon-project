@@ -5,9 +5,12 @@ import {
   HttpStatus,
   HttpException,
   Query,
+  Body,
+  Post,
 } from '@nestjs/common';
 import { QueueService } from '../queue/queue.service';
 import { PokemonService } from './pokemon.service';
+import { RequestTradeDto } from './dto/requestTrade.dto';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -36,6 +39,21 @@ export class PokemonController {
       return result;
     } catch (error) {
       console.error('Error getting owned pokemons:', error);
+      throw new HttpException('Error with the backend services', 500);
+    }
+  }
+
+  @Post('request-trade')
+  @HttpCode(HttpStatus.OK)
+  async requestTrade(@Body() requestTradeDto: RequestTradeDto) {
+    try {
+      const result = await this.queueService.requestTrade(
+        requestTradeDto.userId,
+        requestTradeDto.pokemonId,
+      );
+      return result;
+    } catch (error) {
+      console.error('Error requesting trade:', error);
       throw new HttpException('Error with the backend services', 500);
     }
   }
