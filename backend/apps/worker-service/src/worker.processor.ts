@@ -3,6 +3,7 @@ import { Job } from 'bull';
 import { getPokemonsService } from './getPokemons.service';
 import { AssignPokemonsService } from './assignPokemons.service';
 import { RequestTradeService } from './requestTrade.service';
+import { GivePokemonService } from './givePokemon.service';
 
 @Processor('task-queue')
 export class WorkerProcessor {
@@ -10,6 +11,7 @@ export class WorkerProcessor {
     private readonly workerService: getPokemonsService,
     private readonly assignPokemon: AssignPokemonsService,
     private readonly requestTrade: RequestTradeService,
+    private readonly givePokemon: GivePokemonService,
   ) {}
 
   @Process('get-pokemons')
@@ -43,6 +45,20 @@ export class WorkerProcessor {
     try {
       const result = await this.requestTrade.processRequestTrade(
         job.data.userId,
+        job.data.pokemonId,
+      );
+      return result;
+    } catch (error) {
+      console.error('Job failed:', error);
+      throw error;
+    }
+  }
+  @Process('give-pokemon')
+  async handleGivePokemon(job: Job) {
+    try {
+      const result = await this.givePokemon.processGivePokemon(
+        job.data.senderId,
+        job.data.receptorId,
         job.data.pokemonId,
       );
       return result;

@@ -19,6 +19,9 @@ export class Trades {
   @Column()
   trader_id: number;
 
+  @Column()
+  completed: boolean = false;
+
   @ManyToOne(() => RegisteredPokemonEntity, { eager: true })
   @JoinColumn({
     name: 'requested_pokemon_id',

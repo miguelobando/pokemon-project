@@ -5,10 +5,12 @@ import { LoginService } from './login.service';
 import { User } from '../../../../../entities/user.entity';
 import { SignUpDto } from './dto/sing-up.dto';
 import { HttpException } from '@nestjs/common';
+import { QueueService } from '../queue/queue.service';
 
 describe('LoginService', () => {
   let service: LoginService;
-  let usersRepo: Repository<User>;
+  let usersRepo: jest.Mocked<Repository<User>>;
+  let queueService: jest.Mocked<QueueService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,13 +21,25 @@ describe('LoginService', () => {
           useValue: {
             findOne: jest.fn(),
             save: jest.fn(),
+            delete: jest.fn(),
+          },
+        },
+        {
+          provide: QueueService,
+          useValue: {
+            assignPokemonsToUser: jest.fn(),
           },
         },
       ],
     }).compile();
 
     service = module.get<LoginService>(LoginService);
-    usersRepo = module.get<Repository<User>>(getRepositoryToken(User));
+    usersRepo = module.get<Repository<User>>(
+      getRepositoryToken(User),
+    ) as jest.Mocked<Repository<User>>;
+    queueService = module.get<QueueService>(
+      QueueService,
+    ) as jest.Mocked<QueueService>;
   });
 
   it('should be defined', () => {
@@ -68,12 +82,17 @@ describe('LoginService', () => {
       user.gender = signUpDto.gender;
 
       jest.spyOn(usersRepo, 'save').mockResolvedValueOnce(user);
+      jest
+        .spyOn(queueService, 'assignPokemonsToUser')
+        .mockResolvedValueOnce(undefined);
+
       const result = await service.signUp(signUpDto);
 
       expect(result).toEqual(user);
       expect(usersRepo.save).toHaveBeenCalledWith(
         expect.objectContaining(signUpDto),
       );
+      expect(queueService.assignPokemonsToUser).toHaveBeenCalledWith(user.id);
     });
   });
 });

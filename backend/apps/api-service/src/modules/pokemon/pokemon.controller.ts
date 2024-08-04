@@ -11,6 +11,7 @@ import {
 import { QueueService } from '../queue/queue.service';
 import { PokemonService } from './pokemon.service';
 import { RequestTradeDto } from './dto/requestTrade.dto';
+import { GivePokemonDto } from './dto/givePokemon.dto';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -54,6 +55,22 @@ export class PokemonController {
       return result;
     } catch (error) {
       console.error('Error requesting trade:', error);
+      throw new HttpException('Error with the backend services', 500);
+    }
+  }
+
+  @Post('give-pokemon')
+  @HttpCode(HttpStatus.OK)
+  async givePokemon(@Body() givePokemonDto: GivePokemonDto) {
+    try {
+      const result = await this.queueService.givePokemon(
+        givePokemonDto.senderId,
+        givePokemonDto.receptorId,
+        givePokemonDto.pokemonId,
+      );
+      return result;
+    } catch (error) {
+      console.error('Error giving pokemon:', error);
       throw new HttpException('Error with the backend services', 500);
     }
   }

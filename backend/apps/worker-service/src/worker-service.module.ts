@@ -12,6 +12,7 @@ import { RequestTradeService } from './requestTrade.service';
 import { Activities } from 'entities/activities.entity';
 import { Trades } from 'entities/trades.entity';
 import { User } from 'entities/user.entity';
+import { GivePokemonService } from './givePokemon.service';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { User } from 'entities/user.entity';
     getPokemonsService,
     AssignPokemonsService,
     RequestTradeService,
+    GivePokemonService,
   ],
   exports: [getPokemonsService],
 })

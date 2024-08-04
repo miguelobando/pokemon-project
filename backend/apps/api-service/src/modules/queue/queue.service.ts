@@ -97,4 +97,28 @@ export class QueueService {
       throw error;
     }
   }
+
+  async givePokemon(senderId: number, receptorId: number, pokemonId: string) {
+    try {
+      const job = await this.taskQueue.add(
+        'give-pokemon',
+        {
+          message: 'Give pokemon',
+          senderId,
+          receptorId,
+          pokemonId,
+        },
+        {
+          attempts: 5,
+          backoff: 5000,
+        },
+      );
+      const result = await job.finished();
+      console.log('Give pokemon job finished');
+      return result;
+    } catch (error) {
+      console.error('Error giving pokemon:', error);
+      throw error;
+    }
+  }
 }

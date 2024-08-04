@@ -47,6 +47,7 @@ export class RequestTradeService {
       const newTrade = new Trades();
       newTrade.requested_pokemon_id = pokemonId;
       newTrade.trader_id = userId;
+      newTrade.completed = false;
       await queryRunner.manager.save(newTrade);
 
       // Notify to users that have that pokemon
