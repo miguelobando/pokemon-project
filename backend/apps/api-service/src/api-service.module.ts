@@ -4,7 +4,9 @@ import { ApiServiceService } from './api-service.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoginModule } from './modules/login/login.module';
-import { User } from './entities/user.entity';
+import { User } from '../../../entities/user.entity';
+import { PokemonModule } from './modules/pokemon/pokemon.module';
+import { QueueModule } from './modules/queue/queue.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { User } from './entities/user.entity';
       inject: [ConfigService],
     }),
     LoginModule,
+    PokemonModule,
+    QueueModule,
   ],
   controllers: [ApiServiceController],
   providers: [ApiServiceService],
