@@ -7,6 +7,8 @@ import { LoginModule } from './modules/login/login.module';
 import { User } from '../../../entities/user.entity';
 import { PokemonModule } from './modules/pokemon/pokemon.module';
 import { QueueModule } from './modules/queue/queue.module';
+import { OwnedPokemon } from 'entities/ownedPokemon.entity';
+import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { QueueModule } from './modules/queue/queue.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User],
+        entities: [User, OwnedPokemon, RegisteredPokemonEntity],
         synchronize: true,
       }),
       inject: [ConfigService],
