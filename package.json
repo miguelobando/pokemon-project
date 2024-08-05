@@ -6,9 +6,11 @@
     "supertest": "^7.0.0"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/bull": "^10.2.0",
     "axios": "^1.7.3",
-    "bull": "^4.16.0"
+    "bull": "^4.16.0",
+    "universal-cookie": "^7.2.0"
   }
 }
