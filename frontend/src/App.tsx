@@ -5,10 +5,11 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { UserContextProvider } from './context/users';
 import { DashboardPage } from './pages/DashboardPage';
 import PrivateRoutes from './utils/PrivateRoutes';
+import { RegisterPage } from './pages/RegisterPage';
 
 const queryClient = new QueryClient();
 
-function App() {
+export function App() {
 
   return (
     <ChakraProvider>
@@ -17,6 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<DashboardPage />} />
           </Route>

@@ -54,6 +54,10 @@ export const HomePage = () => {
     }
   };
 
+  const handleRegister = () => {
+    navigate('/register');
+  }
+
   
   return (
     <Box
@@ -89,7 +93,7 @@ export const HomePage = () => {
 
         {error && <Text color={'red.500'} fontSize={'sm'}>{errorMessage}</Text>}
 
-        <Link as={RouterLink} to="/register" color="blue.500" textAlign="center">
+        <Link color="blue.500" textAlign="center" onClick={() => handleRegister()}>
           Register
         </Link>
         
