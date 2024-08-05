@@ -18,7 +18,7 @@ import UserContext from '../context/users';
 import { setUserCookie } from '../utils/cookies';
 const errorMessage = 'Invalid email or password';
 import { useNavigate } from "react-router-dom";
-
+import { useQueryClient } from 'react-query';
 
 
 export const HomePage = () => {
@@ -27,7 +27,7 @@ export const HomePage = () => {
   const [error, setError] = useState(false);
   const {  setUser } = useContext(UserContext) as UserDataContext;
   const navigate = useNavigate();
-
+const queryClient = useQueryClient();
 
   const { mutate: handleLogin, isLoading } = useLogin();
 
@@ -40,6 +40,7 @@ export const HomePage = () => {
           onSuccess: (result: UserData) => {
             setUser(result);
             setUserCookie(JSON.stringify(result));
+            queryClient.setQueryData(['user'], result);
             navigate('/dashboard');
             
           },

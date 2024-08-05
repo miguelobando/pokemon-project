@@ -10,10 +10,18 @@ interface Props {
 export function UserContextProvider({ children }:Props) {
   const [user, setUser] = useState<UserData | null>(null);
   
-    return( 
-  <Context.Provider value={{user, setUser}}>
-    {children}
-    </Context.Provider>);
+  // useEffect(() => {
+  //   const userCookie = getUserCookie();
+  //   if (userCookie) {
+  //     setUser(JSON.parse(userCookie));
+  //   }
+  // }, []);
+
+  return( 
+    <Context.Provider value={{user, setUser}}>
+      {children}
+    </Context.Provider>
+  );
 }
 
 export default Context;

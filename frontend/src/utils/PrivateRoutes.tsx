@@ -1,7 +1,7 @@
 import { useNavigate, Outlet, Navigate } from "react-router-dom";
 import { useContext, useEffect, useRef } from "react";
-import { removeUserCookie, getUserCookie } from "./cookies";
-import { UserData, UserDataContext } from "../interfaces/userInfo";
+import { removeUserCookie } from "./cookies";
+import { UserDataContext } from "../interfaces/userInfo";
 import UserContext from '../context/users';
 import { DashboardLayout } from "../layouts/DashboardLayout";
 
@@ -12,20 +12,8 @@ const PrivateRoutes = () => {
     const navigate = useNavigate();
 
     const isUserLoggedIn = () => {
-        let parsedUser: UserData | null = null;
-        const cookieUser = getUserCookie();
-        if (cookieUser) {
-            try {
-                parsedUser = JSON.parse(cookieUser) as UserData;
-                if (parsedUser && parsedUser.email) {
-                    setUser(parsedUser);
-                }
-            } catch (error) {
-                console.error("Error parsing user cookie:", error);
-            }
-        }
-
-        return (user && user.email !== '') || (parsedUser && parsedUser.email !== '');
+        
+        return (user && user.email !== '');
     };
 
     const logoutUser = () => {
