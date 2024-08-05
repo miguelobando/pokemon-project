@@ -6,6 +6,7 @@ import { UserContextProvider } from './context/users';
 import { DashboardPage } from './pages/DashboardPage';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { RegisterPage } from './pages/RegisterPage';
+// import { DashboardLayout } from './layouts/DashboardLayout';
 
 const queryClient = new QueryClient();
 

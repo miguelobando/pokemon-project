@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef } from "react";
 import { removeUserCookie, getUserCookie } from "./cookies";
 import { UserData, UserDataContext } from "../interfaces/userInfo";
 import UserContext from '../context/users';
+import { DashboardLayout } from "../layouts/DashboardLayout";
 
 const PrivateRoutes = () => {
     const { user, setUser } = useContext(UserContext) as UserDataContext;
@@ -51,7 +52,11 @@ const PrivateRoutes = () => {
         };
     }, []);
 
-    return isUserLoggedIn() ? <Outlet /> : <Navigate to="/" />;
+    return isUserLoggedIn() ?
+    <DashboardLayout>
+    <Outlet /> 
+    </DashboardLayout>
+    : <Navigate to="/" />;
     
 };
 
