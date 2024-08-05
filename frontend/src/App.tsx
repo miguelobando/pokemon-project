@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { UserContextProvider } from './context/users';
 import { DashboardPage } from './pages/DashboardPage';
+import PrivateRoutes from './utils/PrivateRoutes';
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
         </Routes>
       </Router>
       
