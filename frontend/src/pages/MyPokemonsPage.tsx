@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserDataContext } from "../interfaces/userInfo";
 import UserContext from "../context/users";
 import { useOwnedPokemons } from "../hooks/usePokemons";
@@ -12,11 +12,6 @@ export const MyPokemonsPage = () => {
     const { data: ownedPokemons, isLoading: isLoadingOwnedPokemons } =
     useOwnedPokemons(user?.id);
 
-
-
-    useEffect(() => {
-        console.log(ownedPokemons);
-    }, [ownedPokemons]);
     
     if (isLoadingOwnedPokemons) {
         return <CircularProgress isIndeterminate />;

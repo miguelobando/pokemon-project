@@ -48,7 +48,7 @@ export class QueueService {
       console.log('Get pokemons job finished:');
       return result;
     } catch (error) {
-      console.error('Error getting pokemons:', error);
+      console.error('Error getting pokemons');
       throw error;
     }
   }
@@ -70,7 +70,7 @@ export class QueueService {
       console.log('Assign pokemons to user job finished');
       return result;
     } catch (error) {
-      console.error('Error assigning pokemons to user:', error);
+      console.error('Error assigning pokemons to user');
       throw error;
     }
   }
@@ -93,7 +93,7 @@ export class QueueService {
       console.log('Request trade job finished');
       return result;
     } catch (error) {
-      console.error('Error requesting trade:', error);
+      console.error('Error requesting trade:');
       throw error;
     }
   }
@@ -117,7 +117,7 @@ export class QueueService {
       console.log('Give pokemon job finished');
       return result;
     } catch (error) {
-      console.error('Error giving pokemon:', error);
+      console.error('Error giving pokemon');
       throw error;
     }
   }

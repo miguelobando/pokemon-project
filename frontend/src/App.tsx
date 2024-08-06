@@ -9,6 +9,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { PokedexPage } from './pages/PokedexPage';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { MyPokemonsPage } from './pages/MyPokemonsPage';
+import { TradesPage } from './pages/TradesPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,11 @@ export function App() {
             <Route path="/my-pokemons" element={
               <DashboardLayout>
               <MyPokemonsPage />
+              </DashboardLayout>
+              } />
+              <Route path="/trades" element={
+              <DashboardLayout>
+              <TradesPage />
               </DashboardLayout>
               } />
         </Routes>

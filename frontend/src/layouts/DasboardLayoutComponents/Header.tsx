@@ -22,7 +22,7 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { UserData, UserDataContext } from '../../interfaces/userInfo';
-import { getUserCookie } from '../../utils/cookies';
+import { getUserCookie, removeUserCookie } from '../../utils/cookies';
 import { useContext } from 'react';
 import UserContext from '../../context/users';
 import { useNavigate } from 'react-router-dom';
@@ -48,6 +48,12 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
             } 
         }
     }, []);
+
+    const logoutUser = () => {
+        removeUserCookie();
+        setUser(null);
+        navigate('/', { replace: true });
+    };
 
 
   return (
@@ -82,7 +88,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
                 {/* <Link to="/" p={2} onClick={onClose}>Home</Link> */}
                   <Link to="/my-pokemons" onClick={onClose}> My Pokemons</Link>
                 <Link to="/pokedex" onClick={onClose}>Pokedex</Link>
-                {/* <Link href="/trades" p={2} onClick={onClose}>Trades</Link> */}
+                <Link to="/trades" onClick={onClose}>Trades</Link>
                 {/* <Link href="/notifications" p={2} onClick={onClose}>Notifications</Link> */}
               </VStack>
             </DrawerBody>
@@ -98,12 +104,11 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
          gap={3}
       >
         <Text fontSize={'2xl'} mr={4}>Pokemon Project</Text>
-        {/* <Link href="/" p={2}>Home</Link> */}
         <Link to="/my-pokemons"> My Pokemons</Link>
 
         
         <Link to="/pokedex">Pokedex</Link>
-        {/* <Link href="/trades" p={2}>Trades</Link> */}
+        <Link to="/trades">Trades</Link>
         {/* <Link href="/notifications" p={2}>Notifications</Link> */}
       </Box>
 
@@ -113,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
         </MenuButton>
         <MenuList>
           <MenuItem textColor={'black'}>{user.name}</MenuItem>
-          <MenuItem textColor={'black'}>Logout</MenuItem>
+          <MenuItem textColor={'black'} onClick={logoutUser}>Logout</MenuItem>
         </MenuList>
       </Menu>
     </Flex>
