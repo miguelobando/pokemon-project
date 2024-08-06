@@ -5,6 +5,7 @@ import { User } from '../../../../../entities/user.entity';
 import { Repository } from 'typeorm';
 import { SignInDto } from './dto/sign-in.dto';
 import { QueueService } from '../queue/queue.service';
+import { sign } from 'jsonwebtoken';
 
 @Injectable()
 export class LoginService {
@@ -14,6 +15,15 @@ export class LoginService {
     private readonly queueService: QueueService,
   ) {}
 
+  async findByEmailAndId(email: string, id: number) {
+    const result = this.usersRepo.findOne({ where: { email, id } });
+    if (!result) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   async signIn(data: SignInDto) {
     const user = await this.usersRepo.findOne({
       where: { email: data.email, password: data.password },
@@ -21,7 +31,10 @@ export class LoginService {
     if (!user) {
       throw new HttpException('Invalid email or password', 400);
     }
-    return user;
+
+    const payload = { userId: user.id, email: user.email };
+    const token = sign(payload, 'secret', { expiresIn: '1h' });
+    return { user, token };
   }
 
   async signUp(data: SignUpDto) {

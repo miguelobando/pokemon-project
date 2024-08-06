@@ -98,4 +98,12 @@ export class PokemonController {
       throw new HttpException('Error with the backend services', 500);
     }
   }
+
+  @Get('notifications')
+  @HttpCode(HttpStatus.OK)
+  async getNotifications() {
+    return {
+      success: true,
+    };
+  }
 }

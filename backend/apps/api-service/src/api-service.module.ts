@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ApiServiceController } from './api-service.controller';
 import { ApiServiceService } from './api-service.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -11,6 +11,7 @@ import { OwnedPokemon } from 'entities/ownedPokemon.entity';
 import { RegisteredPokemonEntity } from 'entities/registeredPokemon.entity';
 import { Trades } from 'entities/trades.entity';
 import { Activities } from 'entities/activities.entity';
+import { AuthMiddleware } from './modules/login/middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -45,4 +46,11 @@ import { Activities } from 'entities/activities.entity';
   controllers: [ApiServiceController],
   providers: [ApiServiceService],
 })
-export class ApiServiceModule {}
+export class ApiServiceModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes({
+      path: '/pokemons/notifications',
+      method: RequestMethod.GET,
+    });
+  }
+}
