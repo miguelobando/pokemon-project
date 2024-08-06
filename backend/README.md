@@ -2,20 +2,11 @@
 
 ## To Do
 
-- [x] Create a database using PostgreSQL including the tables
-- [x] Create the register endpoint
-- [x] Create the login endpoint
 - [ ] Create the logout endpoint
 - [ ] Create the reset password endpoint
 - [ ] Create the get JWT guard
-- [x] Assign pokemons to users when registering 
-- [x] Add redist to the project
-- [x] Create the get all pokemons endpoint
-- [x] Get my own pokemons
-- [x] Create the "I want to trade a pokemon" endpoint
-- [x] Create the "I want to give the pokemon endpoint"
 - [ ] Create the method to say aware of new available trades
-- [x] Create endpoint to get available trades   
+ 
 ## Description
 
 Backend side for the Pokemon project.
@@ -27,41 +18,27 @@ $ yarn install
 ```
 
 ## Running the app
-
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+    cd backend
+    yarn install
+    ## Run the api service in a separate terminal
+    cd backend
+    yarn start:dev  api-service
+    ## Run the worker service in a separate terminal
+    cd backend
+    yarn start:dev  worker-service
 ```
 
-## Test
+# Tecnologies used
 
-```bash
-# unit tests
-$ yarn run test
+Nestjs in monorepo mode with 2 apps: 
+- api-service: The api service
+- worker-service: The worker service
 
-# e2e tests
-$ yarn run test:e2e
+The worker service is a service that runs in the background, it is responsible for assigning pokemons to users, requesting trades, and giving pokemons.
 
-# test coverage
-$ yarn run test:cov
-```
+The api service is the main service that handles the requests from the frontend.
+and it is responsible for getting all the pokemons, getting the owned pokemons and other requests.
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+![infra](./image.png)
