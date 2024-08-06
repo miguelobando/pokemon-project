@@ -10,6 +10,7 @@ import { PokedexPage } from './pages/PokedexPage';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { MyPokemonsPage } from './pages/MyPokemonsPage';
 import { TradesPage } from './pages/TradesPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,6 @@ export function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
-          {/* <Route element={<PrivateRoutes />}> */}
             <Route path="/dashboard" element={
               <DashboardLayout>
               <DashboardPage />
@@ -52,6 +52,8 @@ export function App() {
               <TradesPage />
               </DashboardLayout>
               } />
+              <Route path="/*" element={<NotFoundPage />} />
+
         </Routes>
       </Router>
       </UserContextProvider>

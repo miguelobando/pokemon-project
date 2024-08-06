@@ -10,12 +10,12 @@ import {
   Text,
   CircularProgress,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 import { UserData, UserDataContext } from '../interfaces/userInfo';
 import UserContext from '../context/users';
-import { setUserCookie } from '../utils/cookies';
+import { getUserCookie, setUserCookie } from '../utils/cookies';
 const errorMessage = 'Invalid email or password';
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from 'react-query';
@@ -30,6 +30,14 @@ export const HomePage = () => {
 const queryClient = useQueryClient();
 
   const { mutate: handleLogin, isLoading } = useLogin();
+
+  useEffect(() => {
+    const session = getUserCookie();
+    if (session) {
+      setUser(session);
+      navigate('/dashboard');
+    }
+  }, []);
 
   const handleSubmit = async () => {
     setError(false);
