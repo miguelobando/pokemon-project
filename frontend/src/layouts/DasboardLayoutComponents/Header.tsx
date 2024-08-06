@@ -78,11 +78,10 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
             <DrawerBody>
-              <VStack alignItems="flex-start">
+              <VStack alignItems="flex-start" spacing={2}>
                 {/* <Link to="/" p={2} onClick={onClose}>Home</Link> */}
-                {/* <Link href="/my-pokemons" p={2} onClick={onClose}>Pokemons</Link> */}
+                  <Link to="/my-pokemons" onClick={onClose}> My Pokemons</Link>
                 <Link to="/pokedex" onClick={onClose}>Pokedex</Link>
-                {/* <Link href="/pokedex" p={2} onClick={onClose}>Pokedex</Link> */}
                 {/* <Link href="/trades" p={2} onClick={onClose}>Trades</Link> */}
                 {/* <Link href="/notifications" p={2} onClick={onClose}>Notifications</Link> */}
               </VStack>
@@ -96,10 +95,13 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
         width={{ base: 'full', md: 'auto' }}
         alignItems="center"
         flexGrow={1}
+         gap={3}
       >
         <Text fontSize={'2xl'} mr={4}>Pokemon Project</Text>
         {/* <Link href="/" p={2}>Home</Link> */}
-        {/* <Link href="/my-pokemons" p={2}>Pokemons</Link> */}
+        <Link to="/my-pokemons"> My Pokemons</Link>
+
+        
         <Link to="/pokedex">Pokedex</Link>
         {/* <Link href="/trades" p={2}>Trades</Link> */}
         {/* <Link href="/notifications" p={2}>Notifications</Link> */}

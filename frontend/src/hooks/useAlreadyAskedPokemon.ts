@@ -1,18 +1,19 @@
  import { useQuery } from 'react-query';
 import axios from 'axios';
-import { Pokemon } from '../interfaces/Pokemon';
 import urlGenerator from '../utils/urlGenerator';
+import { TradePokemon } from '../interfaces/tradePokemon';
 
 
 const axiosInstance = axios.create({
   baseURL: urlGenerator(),
 });
 
-const fetchAlreadyAskedPokemon = async (userId: number): Promise<Pokemon[]> => {
-  const { data } = await axiosInstance.get<Pokemon[]>(`/pokemons/asked-pomeons`, {
+const fetchAlreadyAskedPokemon = async (userId: number): Promise<string[]> => {
+  const { data } = await axiosInstance.get<TradePokemon[]>(`/pokemons/asked-pokemons`, {
     params: { id: userId },
   });
-  return data;
+
+    return data.map((pokemon: TradePokemon) => pokemon.requested_pokemon_id);
 };
 
 export const useAlreadyAskedPokemon = (userId?: number) => {

@@ -37,10 +37,22 @@ export const PokedexPage = () => {
           (ownedPokemon: Pokemon) =>
             ownedPokemon.pokemon_id === pokemon.pokemon_id
         );
+        
+        let asked = false;
+
+        const askedPokemon = alreadyAskedPokemons.find(
+          (askedPokemon: string) => askedPokemon === pokemon.pokemon_id
+        );
+
+        if (askedPokemon) {
+          asked = true;
+        }
+        
+        
         return {
           ...pokemon,
           owned: owned == undefined ? false : true,
-          asked: false,
+          asked,
         };
       });
       setPokedexData(pokedexDataResult);

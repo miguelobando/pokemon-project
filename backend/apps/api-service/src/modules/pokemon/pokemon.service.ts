@@ -61,4 +61,18 @@ export class PokemonService {
       throw new HttpException('Error with the backend services', 500);
     }
   }
+
+  async getAskedPokemons(id: number) {
+    try {
+      const askedPokemons = await this.tradesRepository.find({
+        where: { trader_id: id, completed: false },
+        select: ['requested_pokemon_id'],
+      });
+
+      return askedPokemons;
+    } catch (error) {
+      console.error('Error getting asked pokemons:', error);
+      throw new HttpException('Error with the backend services', 500);
+    }
+  }
 }

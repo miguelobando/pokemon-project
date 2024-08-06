@@ -4,10 +4,11 @@ import { HomePage } from './pages/HomePage'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { UserContextProvider } from './context/users';
 import { DashboardPage } from './pages/DashboardPage';
-import PrivateRoutes from './utils/PrivateRoutes';
+// import PrivateRoutes from './utils/PrivateRoutes';
 import { RegisterPage } from './pages/RegisterPage';
 import { PokedexPage } from './pages/PokedexPage';
 import { DashboardLayout } from './layouts/DashboardLayout';
+import { MyPokemonsPage } from './pages/MyPokemonsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,7 +40,12 @@ export function App() {
               <PokedexPage />
               </DashboardLayout>
               } />
-          {/* </Route> */}
+
+            <Route path="/my-pokemons" element={
+              <DashboardLayout>
+              <MyPokemonsPage />
+              </DashboardLayout>
+              } />
         </Routes>
       </Router>
       </UserContextProvider>

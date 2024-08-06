@@ -54,7 +54,7 @@ export class PokemonController {
       );
       return result;
     } catch (error) {
-      console.error('Error requesting trade:', error);
+      console.error('Error requesting trade:');
       throw new HttpException('Error with the backend services', 500);
     }
   }
@@ -70,7 +70,7 @@ export class PokemonController {
       );
       return result;
     } catch (error) {
-      console.error('Error giving pokemon:', error);
+      console.error('Error giving pokemon');
       throw new HttpException('Error with the backend services', 500);
     }
   }
@@ -82,7 +82,19 @@ export class PokemonController {
       const result = await this.pokemonService.getAvailableTrades();
       return result;
     } catch (error) {
-      console.error('Error getting available trades:', error);
+      console.error('Error getting available trades');
+      throw new HttpException('Error with the backend services', 500);
+    }
+  }
+
+  @Get('asked-pokemons')
+  @HttpCode(HttpStatus.OK)
+  async getAskedPokemons(@Query('id') id: number) {
+    try {
+      const result = await this.pokemonService.getAskedPokemons(id);
+      return result;
+    } catch (error) {
+      console.error('Error getting asked pokemons');
       throw new HttpException('Error with the backend services', 500);
     }
   }
