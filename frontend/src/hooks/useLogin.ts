@@ -1,6 +1,7 @@
 import { useMutation } from 'react-query';
 import axios from 'axios';
-// import env from "react-dotenv";
+import urlGenerator from '../utils/urlGenerator';
+import { LoginInterface } from '../interfaces/LoginInterface';
 
 
 interface LoginData {
@@ -9,12 +10,13 @@ interface LoginData {
 }
 
 const login = async (loginData: LoginData) => {
-  const SERVER_URL = 'http://localhost:3000';
+  const SERVER_URL = urlGenerator();
 
   if (!SERVER_URL)
     throw new Error('SERVER_URL is not set');
-    const response = await axios.post(`${SERVER_URL}/login/sign-in`, loginData);
-  return response.data;
+    const response = await axios.post<LoginInterface>(`${SERVER_URL}/login/sign-in`, loginData);
+  const data = response.data;
+  return data.user;
 };
 
 export const useLogin = () => {
