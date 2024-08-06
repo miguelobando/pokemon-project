@@ -42,3 +42,17 @@ and it is responsible for getting all the pokemons, getting the owned pokemons a
 
 
 ![infra](./image.png)
+
+## Environment Variables
+
+To run the project, you need to set the following environment variables in the `.env` file in the backend folder: 
+
+- `DB_HOST`: The host of the database
+- `DB_PORT`: The port of the database
+- `DB_USERNAME`: The username of the database
+- `DB_PASSWORD`: The password of the database
+- `DB_NAME`: The name of the database
+- `REDIS_HOST`: The host of the redis server
+- `REDIS_PORT`: The port of the redis server
+- `SERVER_URL`: The URL of the server
+
